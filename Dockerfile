@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.3.1-base-ubuntu20.04
+FROM nvidia/cuda
 
 ENV PYTHON_VERSION=3.8
 
