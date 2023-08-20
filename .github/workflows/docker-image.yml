@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    runs-on: nvidia/cuda:11.3.1-base-ubuntu20.04
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
