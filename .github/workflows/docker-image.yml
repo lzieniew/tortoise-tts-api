@@ -14,5 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag tortoise-tts-api:$(date +%s)
+    
+    # Log in to GitHub Container Registry
+    - name: Login to GitHub Container Registry
+      run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    
+    # Build and push the Docker image
+    - name: Build and push Docker image
+      run: |
+        IMAGE_NAME=tortoise-tts-api
+        IMAGE_TAG=$(date +%s)
+        docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
+        docker tag $IMAGE_NAME:$IMAGE_TAG ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
+        docker push ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
