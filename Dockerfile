@@ -30,4 +30,4 @@ RUN pip install -r requirements.txt
 
 RUN python3 setup.py install
 
-CMD ["uvicorn", "rest_api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "rest_api:app", "--host", "0.0.0.0", "--port", "5000"]
