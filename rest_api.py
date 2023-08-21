@@ -18,16 +18,19 @@ class TTSRequest(BaseModel):
     engine: str = 'tortoise'
 
 
-@app.post("/tts/")
-async def text_to_speech(data: TTSRequest):
-    sentence = data.sentence
-    tts_engine = data.engine
+@app.get("/tts/")
+@app.get("/tts")
+#async def text_to_speech(data: TTSRequest):
+async def text_to_speech():
+    #sentence = data.sentence
+    #tts_engine = data.engine
 
-    if not sentence:
-        raise HTTPException(status_code=400, detail="Please provide a sentence.")
+    #if not sentence:
+        #raise HTTPException(status_code=400, detail="Please provide a sentence.")
     
     # Instead of processing through TTS, just return the same text
-    return {"text": sentence}
+    #return {"text": sentence}
+    return {"text": "Testowy tekst"}
 
 if __name__ == "__main__":
     import uvicorn
