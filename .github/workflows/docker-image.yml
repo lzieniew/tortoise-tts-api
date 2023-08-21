@@ -24,6 +24,10 @@ jobs:
       run: |
         IMAGE_NAME=tortoise-tts-api
         IMAGE_TAG=$(date +%s)
-        docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
-        docker tag $IMAGE_NAME:$IMAGE_TAG ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
-        docker push ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
+        FULL_IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
+
+        # Build the Docker image
+        docker build . --file Dockerfile --tag $FULL_IMAGE_NAME
+
+        # Push the Docker image to GitHub Container Registry
+        docker push $FULL_IMAGE_NAME
