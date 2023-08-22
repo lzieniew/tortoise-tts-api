@@ -20,16 +20,19 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+TTS = None
 
-def generate_text(setnence: str):
+def generate_text(sentence: str):
+    global TTS
     clips_paths = [
         '/src/tortoise/voices/train_empire/1.mp3',
         '/src/tortoise/voices/train_empire/2.mp3',
         '/src/tortoise/voices/train_empire/3.mp3',
     ]
     reference_clips = [audio.load_audio(p, 22050) for p in clips_paths]
-    tts = api.TextToSpeech(kv_cache=True, half=True)
-    audio_output = tts.tts_with_preset(setnence, voice_samples=reference_clips, preset='ultra_fast')
+    tts = TTS if TTS is not None else api.TextToSpeech(kv_cache=True, half=True)
+    TTS = tts
+    audio_output = tts.tts_with_preset(sentence, voice_samples=reference_clips, preset='ultra_fast')
     buffer = io.BytesIO()
     torchaudio.save(buffer, audio_output.squeeze(0).cpu(), format="wav", sample_rate=24000)
     buffer.seek(0)
