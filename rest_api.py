@@ -30,7 +30,7 @@ def generate_text(sentence: str):
         '/src/tortoise/voices/train_empire/3.mp3',
     ]
     reference_clips = [audio.load_audio(p, 22050) for p in clips_paths]
-    tts = TTS if TTS is not None else api.TextToSpeech(kv_cache=True, half=True)
+    tts = TTS if TTS is not None else api.TextToSpeech(kv_cache=True, half=True, use_deepspeed=True)
     TTS = tts
     audio_output = tts.tts_with_preset(sentence, voice_samples=reference_clips, preset='ultra_fast')
     buffer = io.BytesIO()
