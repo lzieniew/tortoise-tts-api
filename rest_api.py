@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-TTS = api.TextToSpeech(kv_cache=True, half=True, use_Deepspeed=True)
+TTS = api.TextToSpeech(kv_cache=True, half=True, use_deepspeed=True)
 
 def generate_text(sentence: str):
     global TTS
